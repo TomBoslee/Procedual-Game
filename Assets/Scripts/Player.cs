@@ -36,7 +36,7 @@ public class Player : MonoBehaviour
 
     private void jump()
     {
-        body.velocity = new Vector2(body.velocity.x,speed);
+        body.velocity = new Vector2(body.velocity.x,speed * 1.05f);
         grounded = false;
     }
 
@@ -45,12 +45,6 @@ public class Player : MonoBehaviour
         if(collision.gameObject.CompareTag("Ground"))
         {
             grounded = true;
-        }
-
-        if (collision.gameObject.CompareTag("Obstacle"))
-        {
-            WorldInfo.SwitchDeath();
-            Debug.Log("pw");
         }
     }
 

@@ -11,7 +11,7 @@ public class LevelGeneration : MonoBehaviour
     public Transform player;
     public Tilemap Terrain;
     public TileBase[] tileBases;
-
+    public Transform Spike;
     public int ChunkMax;
 
     private void Awake()
@@ -28,6 +28,7 @@ public class LevelGeneration : MonoBehaviour
             index = index + 4;
         }
         GeneratePlayer();
+        GenerateSpike();
     }
 
     // Update is called once per frame
@@ -36,10 +37,7 @@ public class LevelGeneration : MonoBehaviour
         if (WorldInfo.IsPaused() == true)
         {
 
-            if (WorldInfo.IsPlayerAlive() == false)
-            {
-                PlayerDeath();
-            }
+           
         }
         if (Input.GetKeyDown(KeyCode.P))
         {
@@ -63,18 +61,21 @@ public class LevelGeneration : MonoBehaviour
         
     }
 
+    private void GenerateSpike()
+    {
+        for(int i = 0; i < 3; i++)
+        {
+        Transform spike = Instantiate(Spike);
+        spike.name = "Spike" + i;
+        spike.transform.position = new Vector2(12.5f + i, -0.5f);
+        }
+    }
+
     private void GeneratePlayer()
     {
         Transform Player = Instantiate(player);
         Player.name = "Player";
         Player.transform.position = WorldInfo.GetSpawn();
         Player.AddComponent<BoxCollider2D>();
-        WorldInfo.SwitchDeath();
-    }
-
-    private void PlayerDeath()
-    {
-        Destroy(GameObject.Find("Player"));
-        GeneratePlayer();
     }
 }
