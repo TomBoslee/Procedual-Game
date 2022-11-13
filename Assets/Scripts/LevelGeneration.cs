@@ -13,27 +13,30 @@ public class LevelGeneration : MonoBehaviour
     public TileBase[] tileBases;
 
     public int ChunkMax;
+
+    private void Awake()
+    {
+        Terrain.AddComponent<TilemapCollider2D>();
+        Terrain.tag = "Ground";
+    }
     void Start()
     {
         int index = -8;
-        Terrain.AddComponent<TilemapCollider2D>();
-        Terrain.tag = "Ground";
         for (int i = 0; i < ChunkMax; i++)
         {
             GenerateChunk(index);
             index = index + 4;
         }
         GeneratePlayer();
-        
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (WorldInfo.PauseStatus() == true)
+        if (WorldInfo.IsPaused() == true)
         {
 
-            if (Input.GetKeyDown(KeyCode.F))
+            if (WorldInfo.IsPlayerAlive() == false)
             {
                 PlayerDeath();
             }
@@ -42,7 +45,7 @@ public class LevelGeneration : MonoBehaviour
         {
            WorldInfo.PauseGame();
         }
-        
+
     }
 
     private void GenerateChunk(int x)
@@ -66,6 +69,7 @@ public class LevelGeneration : MonoBehaviour
         Player.name = "Player";
         Player.transform.position = WorldInfo.GetSpawn();
         Player.AddComponent<BoxCollider2D>();
+        WorldInfo.SwitchDeath();
     }
 
     private void PlayerDeath()

@@ -16,7 +16,7 @@ public class Player : MonoBehaviour
     private void Update()
     {
 
-        if(WorldInfo.PauseStatus() == false)
+        if(WorldInfo.IsPaused() == false)
         {
             body.gravityScale = 1;
             body.velocity = new Vector2(speed, body.velocity.y);
@@ -42,9 +42,15 @@ public class Player : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        if(collision.gameObject.tag == "Ground")
+        if(collision.gameObject.CompareTag("Ground"))
         {
             grounded = true;
+        }
+
+        if (collision.gameObject.CompareTag("Obstacle"))
+        {
+            WorldInfo.SwitchDeath();
+            Debug.Log("pw");
         }
     }
 

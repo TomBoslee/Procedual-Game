@@ -10,6 +10,6 @@ public class Camera : MonoBehaviour
     void Update()
     {
         player = GameObject.Find("Player").transform;
-        transform.position = player.transform.position + new Vector3(0, 1, -5);
+        transform.position = player.transform.position + new Vector3(3, 1, -5);
     }
 }

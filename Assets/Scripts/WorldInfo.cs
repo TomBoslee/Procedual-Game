@@ -4,7 +4,7 @@ using UnityEngine;
 
 public static class WorldInfo {
     private static Vector2 SpawnPoint;
-    private static bool PlayerDead = false;
+    private static bool PlayerState= false;
     private static bool Pause = false;
     public static void SetSpwan(Vector2 spawn)
     {
@@ -18,12 +18,12 @@ public static class WorldInfo {
 
     public static void SwitchDeath()
     {
-        PlayerDead = !PlayerDead;
+        PlayerState = !PlayerState;
     }
 
-    public static bool PlayerStatus()
+    public static bool IsPlayerAlive()
     {
-        return PlayerDead;
+        return PlayerState;
     }
 
     public static void PauseGame()
@@ -31,7 +31,7 @@ public static class WorldInfo {
         Pause = !Pause;
     }
 
-    public static bool PauseStatus()
+    public static bool IsPaused()
     {
         return Pause;
     }
