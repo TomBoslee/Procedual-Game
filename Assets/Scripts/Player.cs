@@ -12,6 +12,7 @@ public class Player : MonoBehaviour
     private void Awake()
     {
         body = GetComponent<Rigidbody2D>();
+        body.angularVelocity = 0;
     }
 
     private void Update()

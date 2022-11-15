@@ -28,7 +28,7 @@ public class LevelGeneration : MonoBehaviour
             index = index + 4;
         }
         GeneratePlayer();
-        GenerateSpike();
+        GenerateSpike(1);
     }
 
     // Update is called once per frame
@@ -61,9 +61,9 @@ public class LevelGeneration : MonoBehaviour
         
     }
 
-    private void GenerateSpike()
+    private void GenerateSpike(int Amount)
     {
-        for(int i = 0; i < 3; i++)
+        for(int i = 0; i < Amount; i++)
         {
         Transform spike = Instantiate(Spike);
         spike.name = "Spike" + i;
