@@ -4,7 +4,8 @@ using UnityEngine;
 
 public class Player : MonoBehaviour
 {
-    public float speed;
+    private float Jumpspeed = 8f;
+    private float TravelSpeed = 3f;
     private Rigidbody2D body;
     private bool grounded;
 
@@ -19,7 +20,7 @@ public class Player : MonoBehaviour
         if(WorldInfo.IsPaused() == false)
         {
             body.gravityScale = 1;
-            body.velocity = new Vector2(speed, body.velocity.y);
+            body.velocity = new Vector2(TravelSpeed, body.velocity.y);
             if (Input.GetKeyDown(KeyCode.Space) && grounded)
             {
                 jump();
@@ -36,7 +37,7 @@ public class Player : MonoBehaviour
 
     private void jump()
     {
-        body.velocity = new Vector2(body.velocity.x,speed * 1.05f);
+        body.velocity = new Vector2(body.velocity.x,Jumpspeed * 1.05f);
         grounded = false;
     }
 
