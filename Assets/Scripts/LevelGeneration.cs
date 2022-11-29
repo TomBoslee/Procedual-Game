@@ -13,11 +13,12 @@ public class LevelGeneration : MonoBehaviour
     public TileBase[] tileBases;
     public Transform Spike;
     public int ChunkMax;
-
-    private string BackwardsSpike = "000030010";
+    public int ObstacleMax;
 
     private void Awake()
     {
+        Obstacles.initialiseObstacle();
+        ObstacleMax = Obstacles.Keys.Count;
         Terrain.AddComponent<TilemapCollider2D>();
         Terrain.tag = "Ground";
     }
@@ -28,7 +29,7 @@ public class LevelGeneration : MonoBehaviour
             GenerateChunk(i);
         }
         GeneratePlayer();
-        Decoder(BackwardsSpike, 16, 1);
+        Decoder(Obstacles.LoadObstacle(Obstacles.Keys[1]), 16, 1);
         // GenerateSpikeDuck(16, 1);
 
     }
@@ -114,12 +115,6 @@ public class LevelGeneration : MonoBehaviour
         Terrain.SetTile(new Vector3Int(Posx + 5, Posy + 1,0), tileBases[4]);
     }
 
-    private void GenerateSpikeDuck(int Posx, int Posy)
-    {
-        Terrain.SetTile(new Vector3Int(Posx, Posy + 2, 0), tileBases[4]);
-        Transform spike = GenerateSpike(Posx + 0.5f, Posy + 1.5f);
-        RotateSpike(spike);
-    }
 
     private void RotateSpike(Transform Spike)
     {

@@ -5,6 +5,7 @@ using UnityEngine;
 public static class WorldInfo {
     private static Vector2 SpawnPoint = new Vector2(0,2);
     private static bool Pause = false;
+
     public static void SetSpwan(Vector2 spawn)
     {
         SpawnPoint = spawn;
