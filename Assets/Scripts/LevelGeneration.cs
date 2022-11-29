@@ -30,7 +30,6 @@ public class LevelGeneration : MonoBehaviour
         }
         GeneratePlayer();
         Decoder(Obstacles.LoadObstacle(Obstacles.Keys[1]), 16, 1);
-        // GenerateSpikeDuck(16, 1);
 
     }
 
@@ -49,33 +48,36 @@ public class LevelGeneration : MonoBehaviour
 
     }
 
-    private void Decoder(string code, int posX,int posY)
+    private void Decoder(string code, int posX, int posY)
     {
         int X = posX;
         int Y = posY;
-        for (int n = 0; n < code.Length ; n++ )
+
+        foreach (string codeline in code.Split(","))
         {
-            if (code[n] == '1')
-            {
-                GenerateTile(X, Y);
-            }
-            else if (code[n] == '2')
-            {
-                GenerateSpike(X, Y);
-            }
-            else if (code[n] == '3')
-            {
-                Transform spike =  GenerateSpike(X,Y);
-                RotateSpike(spike);
-            }
 
-            X++;
-            if (X == posX + 3)
+            for (int n = 0; n < codeline.Length; n++)
             {
-                X = posX;
-                Y++;
-            }
 
+                if (codeline[n] == '1')
+                {
+                    GenerateTile(X, Y);
+                }
+                else if (codeline[n] == '2')
+                {
+                    GenerateSpike(X, Y);
+                }
+                else if (codeline[n] == '3')
+                {
+                    Transform spike = GenerateSpike(X, Y);
+                    RotateSpike(spike);
+                }
+
+                X++;    
+
+            }
+            X = posX;
+            Y++;
         }
         
 
