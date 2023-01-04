@@ -29,7 +29,7 @@ public class LevelGeneration : MonoBehaviour
             GenerateChunk(i);
         }
         GeneratePlayer();
-        Decoder(Obstacles.LoadObstacle(Obstacles.Keys[1]), 16, 1);
+        Decoder(Obstacles.LoadObstacle(Obstacles.Keys[4]), 16, 1);
 
     }
 

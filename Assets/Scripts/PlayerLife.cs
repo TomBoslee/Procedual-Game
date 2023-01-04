@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class PlayerLife : MonoBehaviour
 {
@@ -14,7 +15,7 @@ public class PlayerLife : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
@@ -27,6 +28,7 @@ public class PlayerLife : MonoBehaviour
 
     private void death()
     {
-        rb.bodyType = RigidbodyType2D.Static;
+        WorldInfo.IncrementAttempt();
+        transform.position = WorldInfo.GetSpawn();
     }
 }

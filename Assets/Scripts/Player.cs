@@ -12,7 +12,6 @@ public class Player : MonoBehaviour
     private void Awake()
     {
         body = GetComponent<Rigidbody2D>();
-        body.angularVelocity = 0;
     }
 
     private void Update()
@@ -38,6 +37,7 @@ public class Player : MonoBehaviour
 
     private void jump()
     {
+
         body.velocity = new Vector2(body.velocity.x,Jumpspeed * 1.05f);
         grounded = false;
     }
