@@ -21,7 +21,6 @@ public class LevelGeneration : MonoBehaviour
     void Start()
     {
         GeneratePlayer();
-        Decoder(Obstacles.LoadObstacle(Obstacles.Keys[4]), 16, 1);
         GenerateRandomObstacles();
 
     }

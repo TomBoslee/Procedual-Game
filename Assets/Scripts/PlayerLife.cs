@@ -15,18 +15,18 @@ public class PlayerLife : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-
+        if (rb.transform.position.x < WorldInfo.GetSpawn().x) { GameOver(); }
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
         if (collision.gameObject.CompareTag("Obstacle")){
-            death();
+            GameOver();
         }
        
     }
 
-    private void death()
+    private void GameOver()
     {
         WorldInfo.IncrementAttempt();
         transform.position = WorldInfo.GetSpawn();
