@@ -8,7 +8,7 @@ public class UI : MonoBehaviour
     private int Score = 0;
     public Text ScoreText;
 
-    private int Attempt = 0;
+    private float Attempt = 0;
     public Text AttemptText;
 
     private void Update()

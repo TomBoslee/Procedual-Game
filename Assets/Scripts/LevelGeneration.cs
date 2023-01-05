@@ -1,33 +1,22 @@
-using System.Collections;
-using System.Collections.Generic;
-using System.Runtime.CompilerServices;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Tilemaps;
-using UnityEngine.VFX;
 
 public class LevelGeneration : MonoBehaviour
 {
+    public GameObject ObstacleManager;
+    public Transform Square;
     public Transform player;
-    public Tilemap Terrain;
-    public TileBase[] tileBases;
     public Transform Spike;
-    public int ChunkMax;
     public int ObstacleMax;
 
     private void Awake()
     {
         Obstacles.initialiseObstacle();
         ObstacleMax = Obstacles.Keys.Count;
-        Terrain.AddComponent<TilemapCollider2D>();
-        Terrain.tag = "Ground";
     }
     void Start()
     {
-        for (int i = -8; i < 3 * ChunkMax; i = i + 3)
-        {
-            GenerateChunk(i);
-        }
         GeneratePlayer();
         Decoder(Obstacles.LoadObstacle(Obstacles.Keys[4]), 16, 1);
 
@@ -45,7 +34,6 @@ public class LevelGeneration : MonoBehaviour
         {
            WorldInfo.PauseGame();
         }
-
     }
 
     private void Decoder(string code, int posX, int posY)
@@ -61,7 +49,7 @@ public class LevelGeneration : MonoBehaviour
 
                 if (codeline[n] == '1')
                 {
-                    GenerateTile(X, Y);
+                    GenerateSquare(X, Y);
                 }
                 else if (codeline[n] == '2')
                 {
@@ -83,38 +71,21 @@ public class LevelGeneration : MonoBehaviour
 
     }
 
-    private void GenerateChunk(int x)
+    private void GenerateSquare(int posX, int PosY)
     {
-
-        for (int y = 0; y > -3; y = y-1)
-        {
-            for (int z = x; z < x + 3; z++)
-            {
-                Terrain.SetTile(new Vector3Int(z, y, 0), tileBases[4]);
-            }
-
-        }
-        
-        
-    }
-    private void GenerateTile(int posX, int PosY)
-    {
-        Terrain.SetTile(new Vector3Int(posX, PosY, 0 ), tileBases[4]);
+        Transform box = Instantiate(Square);
+        box.name = "Square";
+        box.position = new Vector2(posX + 0.5f, PosY + 0.5f);
+        box.parent = ObstacleManager.transform;
     }
 
-    private Transform GenerateSpike(float Posx, float Posy)
+    private Transform GenerateSpike(float PosX, float PosY)
     {
         Transform spike = Instantiate(Spike);
         spike.name = "Spike";
-        spike.position = new Vector2(Posx + 0.5f, Posy + 0.5f);
+        spike.position = new Vector2(PosX + 0.5f, PosY + 0.5f);
+        spike.parent = ObstacleManager.transform;
         return spike;
-    }
-
-    private void GenerateStairs(int Amount, int Posx, int Posy)
-    {
-        Terrain.SetTile(new Vector3Int(Posx, Posy, 0), tileBases[4]);
-        Terrain.SetTile(new Vector3Int(Posx + 5, Posy, 0), tileBases[4]);
-        Terrain.SetTile(new Vector3Int(Posx + 5, Posy + 1,0), tileBases[4]);
     }
 
 
