@@ -9,6 +9,9 @@ public class LevelGeneration : MonoBehaviour
     public Transform player;
     public Transform Spike;
     public int ObstacleMax;
+    public float scrollSpeed = 5.0f;
+    public float Frequency = 0.5f;
+    private float Counter = 0.0f;
 
     private void Awake()
     {
@@ -19,21 +22,38 @@ public class LevelGeneration : MonoBehaviour
     {
         GeneratePlayer();
         Decoder(Obstacles.LoadObstacle(Obstacles.Keys[4]), 16, 1);
+        GenerateRandomObstacles();
 
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (WorldInfo.IsPaused() == true)
+        if (WorldInfo.IsPaused() == false)
         {
+            if (Counter <= 0.0f) { GenerateRandomObstacles(); } else { Counter -= Time.deltaTime * Frequency; }
 
-           
+
+           ObstacleManager.transform.position -= Vector3.right * (scrollSpeed * Time.deltaTime);
+            GameObject CurrentChild;
+            for (int i = 0; i < ObstacleManager.transform.childCount; i++) {
+                CurrentChild = ObstacleManager.transform.GetChild(i).gameObject;
+                if (CurrentChild.transform.position.x < -15.0f) {
+                    Destroy(CurrentChild);    
+                }
+            }
         }
         if (Input.GetKeyDown(KeyCode.P))
         {
            WorldInfo.PauseGame();
         }
+        
+    }
+
+    private void GenerateRandomObstacles() {
+        int ran = Random.Range(0, ObstacleMax);
+        Decoder(Obstacles.LoadObstacle(Obstacles.Keys[ran]), 16, 1);
+        Counter = 1.0f;
     }
 
     private void Decoder(string code, int posX, int posY)
@@ -101,4 +121,5 @@ public class LevelGeneration : MonoBehaviour
         Player.position = WorldInfo.GetSpawn();
         Player.AddComponent<BoxCollider2D>();
     }
+
 }
