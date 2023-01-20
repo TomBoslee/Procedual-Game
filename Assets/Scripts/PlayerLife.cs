@@ -29,6 +29,5 @@ public class PlayerLife : MonoBehaviour
     private void GameOver()
     {
         WorldInfo.IncrementAttempt();
-        transform.position = WorldInfo.GetSpawn();
     }
 }
