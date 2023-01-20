@@ -35,8 +35,6 @@ public class Player : MonoBehaviour
 
     private void jump()
     {
-
-        //body.velocity = new Vector2(body.velocity.x,Jumpspeed * 1.05f);
         body.AddForce(Vector3.up * (Jumpspeed * body.mass * body.gravityScale * 20f));
         grounded = false;
     }
