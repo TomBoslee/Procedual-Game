@@ -617,21 +617,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cb39f64603d3085439aaed48db95a120, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  ObstacleManager: {fileID: 0}
+  Square: {fileID: 1977825769502802382, guid: 820373eebd63ad1489dbfaeb1f2468af, type: 3}
   player: {fileID: 2043235747086768836, guid: 38afe19a0a93cf64194794de4398a84c, type: 3}
-  Terrain: {fileID: 1952791578}
-  tileBases:
-  - {fileID: 11400000, guid: b8dde4d2c5ce3054488e16fe58abd4ec, type: 2}
-  - {fileID: 11400000, guid: f68f54d3e20a8714e8af983d637925e8, type: 2}
-  - {fileID: 11400000, guid: a69bf548bffcb9146ab870c683c99504, type: 2}
-  - {fileID: 11400000, guid: 5324db76570547d438e6063034c08e73, type: 2}
-  - {fileID: 11400000, guid: 0f0da26810d854340826b61a69526551, type: 2}
-  - {fileID: 11400000, guid: 6b4888deca86b5445bad88a124d1e8b9, type: 2}
-  - {fileID: 11400000, guid: dd2f68dc66c4ec2479e15ae3a6689dd1, type: 2}
-  - {fileID: 11400000, guid: d320e02a3191a27448f33a4783972de9, type: 2}
-  - {fileID: 11400000, guid: 286c4d7340f85054492b35e8f99785b5, type: 2}
   Spike: {fileID: 1262494150369658792, guid: 5cdfc4f08d4338f468d0f3bff2fabe12, type: 3}
-  ChunkMax: 10
   ObstacleMax: 0
+  scrollSpeed: 5
+  Frequency: 0.5
 --- !u!4 &1111931038
 Transform:
   m_ObjectHideFlags: 0
