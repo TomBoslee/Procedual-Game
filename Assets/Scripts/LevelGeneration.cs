@@ -1,3 +1,4 @@
+using System.Runtime.Serialization;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Tilemaps;
@@ -121,10 +122,4 @@ public class LevelGeneration : MonoBehaviour
         Player.position = WorldInfo.GetSpawn();
         Player.AddComponent<BoxCollider2D>();
     }
-
-    public void DestroyObstacles() { 
-        
-    }
-
-
 }
