@@ -8,10 +8,12 @@ public class PlayerLife : MonoBehaviour
     // Start is called before the first frame update
     private Rigidbody2D rb;
     private GameObject ObstacleManager;
+    private GameObject Player;
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
         ObstacleManager = GameObject.Find("Obstacles");
+        Player = GameObject.Find("Player");
     }
 
     // Update is called once per frame
@@ -34,8 +36,9 @@ public class PlayerLife : MonoBehaviour
         for (int i = 0; i < ObstacleManager.transform.childCount; i++)
         {
             CurrentChild = ObstacleManager.transform.GetChild(i).gameObject;
+            Player.transform.position = WorldInfo.GetSpawn();
             Destroy(CurrentChild);
         }
-        WorldInfo.IncrementAttempt();
+        //WorldInfo.IncrementAttempt();
     }
 }
