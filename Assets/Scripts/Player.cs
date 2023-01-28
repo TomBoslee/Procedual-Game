@@ -15,19 +15,10 @@ public class Player : MonoBehaviour
 
     private void Update()
     {
-
-        if(WorldInfo.IsPaused() == false)
+        body.gravityScale = 5;
+        if (Input.GetKeyDown(KeyCode.Space) && grounded)
         {
-            body.gravityScale = 5;
-            if (Input.GetKeyDown(KeyCode.Space) && grounded)
-            {
-                jump();
-            }
-        }
-        else
-        {
-            body.velocity = Vector2.zero;
-            body.gravityScale = 0;
+            jump();
         }
         
          
