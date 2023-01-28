@@ -7,6 +7,7 @@ public class PlayerLife : MonoBehaviour
 {
     // Start is called before the first frame update
     private Rigidbody2D rb;
+    public LevelGeneration levelGeneration;
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();

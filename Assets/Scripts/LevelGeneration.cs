@@ -94,7 +94,7 @@ public class LevelGeneration : MonoBehaviour
     {
         Transform box = Instantiate(Square);
         box.name = "Square";
-        box.position = new Vector2(posX + 0.5f, PosY + 0.5f);
+        box.position = new Vector2(posX, PosY + 0.5f);
         box.parent = ObstacleManager.transform;
     }
 
@@ -102,7 +102,7 @@ public class LevelGeneration : MonoBehaviour
     {
         Transform spike = Instantiate(Spike);
         spike.name = "Spike";
-        spike.position = new Vector2(PosX + 0.5f, PosY + 0.5f);
+        spike.position = new Vector2(PosX, PosY + 0.5f);
         spike.parent = ObstacleManager.transform;
         return spike;
     }
