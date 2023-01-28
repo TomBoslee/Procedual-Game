@@ -102,7 +102,7 @@ public class LevelGeneration : MonoBehaviour
     {
         Transform spike = Instantiate(Spike);
         spike.name = "Spike";
-        spike.position = new Vector2(PosX, PosY + 0.5f);
+        spike.position = new Vector2(PosX, PosY + 0.4f);
         spike.parent = ObstacleManager.transform;
         return spike;
     }
@@ -111,6 +111,7 @@ public class LevelGeneration : MonoBehaviour
     private void RotateSpike(Transform Spike)
     {
         Spike.rotation = Quaternion.Euler(0, 0, 180);
+        Spike.Translate(0,-0.15f,0);
     }
         
         private void GeneratePlayer()
@@ -120,5 +121,10 @@ public class LevelGeneration : MonoBehaviour
         Player.position = WorldInfo.GetSpawn();
         Player.AddComponent<BoxCollider2D>();
     }
+
+    public void DestroyObstacles() { 
+        
+    }
+
 
 }
