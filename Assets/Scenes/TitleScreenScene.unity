@@ -4404,6 +4404,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   masterMixer: {fileID: 24100000, guid: 2cd71db6b558e0247bb6b10d679bf6b8, type: 2}
   ResolutionDropdown: {fileID: 452519069}
+  SeedInput: {fileID: 204060201}
 --- !u!1 &1277307223
 GameObject:
   m_ObjectHideFlags: 0

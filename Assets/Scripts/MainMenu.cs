@@ -5,12 +5,15 @@ using UnityEngine.SceneManagement;
 using UnityEngine.Audio;
 using Unity.UI;
 using UnityEngine.UI;
+using TMPro;
 
 public class MainMenu : MonoBehaviour
 {
     public AudioMixer masterMixer;
 
     public Dropdown ResolutionDropdown;
+
+    public TMP_InputField SeedInput;
 
     Resolution[] resolutions;
 
@@ -48,6 +51,7 @@ public class MainMenu : MonoBehaviour
     public void PlayGameSeed()
     {
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
+        WorldInfo.SetSeed(SeedInput.text);
         WorldInfo.Endless = false;
     }
 

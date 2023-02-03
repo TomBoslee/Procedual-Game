@@ -25,6 +25,10 @@ public class LevelGeneration : MonoBehaviour
         GeneratePlayer();
         if (WorldInfo.Endless == true) {
             GenerateRandomObstacles(); }
+        if(WorldInfo.Endless == false)
+        {
+            Debug.Log(WorldInfo.GetSeed());
+        }
 
     }
 
