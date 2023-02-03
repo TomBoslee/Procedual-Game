@@ -38,7 +38,10 @@ public class Player : MonoBehaviour
         {
             grounded = true;
         }
+    }
 
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
         if (collision.gameObject.CompareTag("JumpPad")) {
             jump(SuperJumpSpeed);
         }
