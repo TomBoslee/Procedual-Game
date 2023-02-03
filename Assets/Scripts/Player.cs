@@ -17,7 +17,7 @@ public class Player : MonoBehaviour
 
     private void Update()
     {
-        body.gravityScale = 5;
+        body.gravityScale = -5;
         if (Input.GetKeyDown(KeyCode.Space) && grounded)
         {
             jump(Jumpspeed);

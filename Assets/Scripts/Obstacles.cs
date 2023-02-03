@@ -22,10 +22,12 @@ public static class Obstacles
         while (reader.Peek() >= 0)
         {
             line = reader.ReadLine();
+            if (!line.StartsWith("/")) {
             key = line.Split('-')[0];
             code = line.Split('-')[1];
             Obstacle.Add(key, code);
             Keys.Add(key);
+            }
         }
         
         
