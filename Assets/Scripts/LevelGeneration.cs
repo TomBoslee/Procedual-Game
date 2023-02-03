@@ -8,6 +8,7 @@ public class LevelGeneration : MonoBehaviour
     public GameObject ObstacleManager;
     public GameObject MissionUI;
     public Transform Square;
+    public Transform JumpPad;
     public Transform player;
     public Transform Spike;
     public int ObstacleMax;
@@ -31,6 +32,7 @@ public class LevelGeneration : MonoBehaviour
         {
             MissionUI.SetActive(true);
             Debug.Log(WorldInfo.GetSeed());
+            MissionGeneration();
         }
 
     }
@@ -38,7 +40,7 @@ public class LevelGeneration : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-       if (WorldInfo.Endless == true) { EndlessUpdate(); }
+       if (WorldInfo.Endless == true) { EndlessUpdate(); } //else { MissionGeneration(); }
        ObstacleManager.transform.position -= Vector3.right * (scrollSpeed * Time.deltaTime);
        GameObject CurrentChild;
        for (int i = 0; i < ObstacleManager.transform.childCount; i++) {
@@ -48,6 +50,10 @@ public class LevelGeneration : MonoBehaviour
              }
         }
         
+    }
+
+    private void MissionGeneration() {
+        Decoder(Obstacles.LoadObstacle(Obstacles.Keys[2]), 16, 1);
     }
 
     private void EndlessUpdate()
@@ -85,6 +91,10 @@ public class LevelGeneration : MonoBehaviour
                     Transform spike = GenerateSpike(X, Y);
                     RotateSpike(spike);
                 }
+                else if (codeline[n] == '4') 
+                {
+                    GenerateJumpPad(X, Y);
+                }
 
                 X++;    
 
@@ -94,6 +104,14 @@ public class LevelGeneration : MonoBehaviour
         }
         
 
+    }
+
+    private void GenerateJumpPad(int posX, int posY)
+    {
+        Transform pad = Instantiate(JumpPad);
+        pad.name = "JumpPad";
+        pad.position = new Vector2(posX, posY);
+        pad.parent = ObstacleManager.transform;
     }
 
     private void GenerateSquare(int posX, int PosY)

@@ -1,3 +1,4 @@
+using Mono.Cecil.Cil;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -5,6 +6,7 @@ using UnityEngine;
 public class Player : MonoBehaviour
 {
     private float Jumpspeed = 8f;
+    private float SuperJumpSpeed = 8f;
     private Rigidbody2D body;
     private bool grounded;
 
@@ -18,15 +20,15 @@ public class Player : MonoBehaviour
         body.gravityScale = 5;
         if (Input.GetKeyDown(KeyCode.Space) && grounded)
         {
-            jump();
+            jump(Jumpspeed);
         }
         
          
     }
 
-    private void jump()
+    private void jump(float JSpeed)
     {
-        body.AddForce(Vector3.up * (Jumpspeed * body.mass * body.gravityScale * 20f));
+        body.AddForce(Vector3.up * (JSpeed * body.mass * body.gravityScale * 20f));
         grounded = false;
     }
 
@@ -35,6 +37,10 @@ public class Player : MonoBehaviour
         if(collision.gameObject.CompareTag("Ground"))
         {
             grounded = true;
+        }
+
+        if (collision.gameObject.CompareTag("JumpPad")) {
+            jump(SuperJumpSpeed);
         }
     }
 

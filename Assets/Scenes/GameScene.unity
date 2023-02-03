@@ -1668,6 +1668,7 @@ MonoBehaviour:
   ObstacleManager: {fileID: 1543370559}
   MissionUI: {fileID: 1081338789}
   Square: {fileID: 1977825769502802382, guid: 820373eebd63ad1489dbfaeb1f2468af, type: 3}
+  JumpPad: {fileID: 9096162995050612176, guid: f03a9fbe8d5308f4b8e7b729e945bf12, type: 3}
   player: {fileID: 2043235747086768836, guid: 38afe19a0a93cf64194794de4398a84c, type: 3}
   Spike: {fileID: 678393626842758331, guid: 5cdfc4f08d4338f468d0f3bff2fabe12, type: 3}
   ObstacleMax: 0
