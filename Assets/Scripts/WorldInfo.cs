@@ -4,7 +4,10 @@ using UnityEngine;
 
 public static class WorldInfo {
     private static Vector2 SpawnPoint = new Vector2(-1,2);
+    private static string Seed;
     public static bool HasDied = false;
+    //Set false to test for mission level
+    public static bool Endless = true;
 
     public static void SetSpwan(Vector2 spawn)
     {
@@ -15,4 +18,7 @@ public static class WorldInfo {
     {
         return SpawnPoint;
     }
+
+    public static string GetSeed() { return Seed; }
+    public static void SetSeed(string seed) { Seed = seed; }
 }

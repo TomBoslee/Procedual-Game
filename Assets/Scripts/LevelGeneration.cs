@@ -23,14 +23,15 @@ public class LevelGeneration : MonoBehaviour
     void Start()
     {
         GeneratePlayer();
-        GenerateRandomObstacles();
+        if (WorldInfo.Endless == true) {
+            GenerateRandomObstacles(); }
 
     }
 
     // Update is called once per frame
     void Update()
     {
-       if (Counter <= 0.0f) { GenerateRandomObstacles(); } else { Counter -= Time.deltaTime * Frequency; }
+       if (WorldInfo.Endless == true) { EndlessUpdate(); }
        ObstacleManager.transform.position -= Vector3.right * (scrollSpeed * Time.deltaTime);
        GameObject CurrentChild;
        for (int i = 0; i < ObstacleManager.transform.childCount; i++) {
@@ -40,6 +41,11 @@ public class LevelGeneration : MonoBehaviour
              }
         }
         
+    }
+
+    private void EndlessUpdate()
+    {
+       if (Counter <= 0.0f) { GenerateRandomObstacles(); } else { Counter -= Time.deltaTime * Frequency; }
     }
 
     private void GenerateRandomObstacles() {

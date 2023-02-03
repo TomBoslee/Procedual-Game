@@ -39,10 +39,18 @@ public class MainMenu : MonoBehaviour
         ResolutionDropdown.RefreshShownValue();
 
     }
-    public void PlayGame()
+    public void PlayGameEndless()
     {
-        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);  
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
+        WorldInfo.Endless = true;
     }
+
+    public void PlayGameSeed()
+    {
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
+        WorldInfo.Endless = false;
+    }
+
 
     public void QuitGame() { 
         Application.Quit();
