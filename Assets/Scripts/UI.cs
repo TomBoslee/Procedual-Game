@@ -4,16 +4,17 @@ using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
+using TMPro;
 
 public class UI : MonoBehaviour
 {
     private float ScoreF = 0f;
     private int Score = 0;
-    public Text ScoreText;
+    public TMP_Text ScoreText;
     private float Frequency = 1f;
 
     private float Attempt = 0;
-    public Text AttemptText;
+    public TMP_Text AttemptText;
 
     public GameObject PauseMenuUI;
 
