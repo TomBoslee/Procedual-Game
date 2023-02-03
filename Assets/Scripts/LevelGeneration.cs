@@ -6,6 +6,7 @@ using UnityEngine.Tilemaps;
 public class LevelGeneration : MonoBehaviour
 {
     public GameObject ObstacleManager;
+    public GameObject MissionUI;
     public Transform Square;
     public Transform player;
     public Transform Spike;
@@ -24,9 +25,11 @@ public class LevelGeneration : MonoBehaviour
     {
         GeneratePlayer();
         if (WorldInfo.Endless == true) {
+            MissionUI.SetActive(false);
             GenerateRandomObstacles(); }
         if(WorldInfo.Endless == false)
         {
+            MissionUI.SetActive(true);
             Debug.Log(WorldInfo.GetSeed());
         }
 

@@ -18,6 +18,8 @@ public class UI : MonoBehaviour
 
     public GameObject PauseMenuUI;
 
+    public Slider LevelSlider;
+
     public static bool GameIsPause = false;
 
     private void Update()
@@ -30,6 +32,7 @@ public class UI : MonoBehaviour
            WorldInfo.HasDied = false;
             ScoreF = 0;
         }
+        LevelSlider.value = Score * 2;
         ScoreF = ScoreF + (Frequency * Time.deltaTime);
         Score = ((int)ScoreF);
         ScoreText.text = "Score:" + Score;
