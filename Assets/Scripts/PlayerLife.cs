@@ -9,6 +9,7 @@ public class PlayerLife : MonoBehaviour
     private Rigidbody2D rb;
     private GameObject ObstacleManager;
     private GameObject Player;
+    private GameObject UI;
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
@@ -39,6 +40,6 @@ public class PlayerLife : MonoBehaviour
             Player.transform.position = WorldInfo.GetSpawn();
             Destroy(CurrentChild);
         }
-        //WorldInfo.IncrementAttempt();
+        WorldInfo.HasDied= true;
     }
 }

@@ -25,9 +25,12 @@ public class UI : MonoBehaviour
         {
             if (GameIsPause) { Resume(); } else { Pause(); }
         }
+        if(WorldInfo.HasDied ==  true) {Attempt+= 1;
+           WorldInfo.HasDied = false;
+            ScoreF = 0;
+        }
         ScoreF = ScoreF + (Frequency * Time.deltaTime);
         Score = ((int)ScoreF);
-        Attempt = WorldInfo.GetAttempt();
         ScoreText.text = "Score:" + Score;
         AttemptText.text = "Attempt:" + Attempt;
     }

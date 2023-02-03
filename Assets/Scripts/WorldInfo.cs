@@ -4,7 +4,7 @@ using UnityEngine;
 
 public static class WorldInfo {
     private static Vector2 SpawnPoint = new Vector2(-1,2);
-    private static float Attempt = 0;
+    public static bool HasDied = false;
 
     public static void SetSpwan(Vector2 spawn)
     {
@@ -14,12 +14,5 @@ public static class WorldInfo {
     public static Vector2 GetSpawn()
     {
         return SpawnPoint;
-    }
-
-    public static float GetAttempt() {
-        return Attempt;
-    }
-    public static void IncrementAttempt() {
-        Attempt = Attempt + 0.5f;
     }
 }
