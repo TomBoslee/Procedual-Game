@@ -9,7 +9,11 @@ public class Camera : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        player = GameObject.Find("Player").transform;
+        if (WorldInfo.GameFin == false)
+        {
+            player = GameObject.Find("Player").transform;
+        }
+        
         //transform.position = player.transform.position + new Vector3(3, 2, -5);
     }
 }

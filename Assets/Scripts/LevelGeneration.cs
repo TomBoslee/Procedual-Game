@@ -8,6 +8,9 @@ public class LevelGeneration : MonoBehaviour
     public GameObject ObstacleManager;
     public GameObject MissionUI;
     public GameObject EndlessUI;
+    public GameObject GameFinUI;
+    public GameObject StartUI;
+    public Transform Goal;
     public Transform Square;
     public Transform JumpPad;
     public Transform player;
@@ -22,10 +25,12 @@ public class LevelGeneration : MonoBehaviour
         Obstacles.initialiseObstacle();
         ObstacleMax = Obstacles.Keys.Count;
         Time.timeScale= 1.0f;
+        WorldInfo.GameFin = false;
     }
     void Start()
     {
         GeneratePlayer();
+        StartUI.SetActive(true);
         if (WorldInfo.Endless == true) {
             MissionUI.SetActive(false);
             EndlessUI.SetActive(true);
@@ -43,16 +48,31 @@ public class LevelGeneration : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-       if (WorldInfo.Endless == true) { EndlessUpdate(); } //else { MissionGeneration(); }
-       ObstacleManager.transform.position -= Vector3.right * (scrollSpeed * Time.deltaTime);
-       GameObject CurrentChild;
-       for (int i = 0; i < ObstacleManager.transform.childCount; i++) {
-            CurrentChild = ObstacleManager.transform.GetChild(i).gameObject;
-            if (CurrentChild.transform.position.x < -15.0f) {
-                    Destroy(CurrentChild);    
-             }
+        if (WorldInfo.GameFin == false)
+        {
+            if (WorldInfo.Endless == true) { EndlessUpdate(); } //else { MissionGeneration(); }
+            ObstacleManager.transform.position -= Vector3.right * (scrollSpeed * Time.deltaTime);
+            GameObject CurrentChild;
+            for (int i = 0; i < ObstacleManager.transform.childCount; i++){
+                CurrentChild = ObstacleManager.transform.GetChild(i).gameObject;
+                if (CurrentChild.transform.position.x < -15.0f){
+                    Destroy(CurrentChild);
+                }
+            }
+
         }
+        else {GameComplete(); }
         
+    }
+
+    private void GameComplete() { 
+        StartUI.SetActive(false);
+        EndlessUI.SetActive(false);
+        MissionUI.SetActive(false);
+        GameFinUI.SetActive(true);
+        Time.timeScale = 0;
+        Destroy(ObstacleManager.gameObject);
+        Destroy(GameObject.Find("Player"));
     }
 
     private void MissionGeneration() {
@@ -94,9 +114,13 @@ public class LevelGeneration : MonoBehaviour
                     Transform spike = GenerateSpike(X, Y);
                     RotateSpike(spike);
                 }
-                else if (codeline[n] == '4') 
+                else if (codeline[n] == '4')
                 {
                     GenerateJumpPad(X, Y);
+                }
+                else if (codeline[n] == 'G')
+                { 
+                    GenerateGoal();
                 }
 
                 X++;    
@@ -107,6 +131,13 @@ public class LevelGeneration : MonoBehaviour
         }
         
 
+    }
+
+    private void GenerateGoal() {
+        Transform goal = Instantiate(Goal);
+        goal.name = "FinishLine";
+        goal.position = new Vector2(16,3.75f);
+        goal.parent = ObstacleManager.transform;
     }
 
     private void GenerateJumpPad(int posX, int posY)
@@ -146,6 +177,7 @@ public class LevelGeneration : MonoBehaviour
         Transform Player = Instantiate(player);
         Player.name = "Player";
         Player.position = WorldInfo.GetSpawn();
+        player.gameObject.SetActive(true);
         Player.AddComponent<BoxCollider2D>();
     }
 }

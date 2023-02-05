@@ -12,19 +12,17 @@ public class UI : MonoBehaviour
     private int Score = 0;
     public TMP_Text ScoreText;
     private float Frequency = 1f;
-
     private float Attempt = 0;
     public TMP_Text AttemptText;
-
     private float HighScoreF = 0;
     private int HighScore = 0;
     public TMP_Text HighScoreText;
-
     public GameObject PauseMenuUI;
-
     public Slider LevelSlider;
-
     public static bool GameIsPause = false;
+    public TMP_Text SeedText;
+    public TMP_Text FinAttemptText;
+
 
     private void Update()
     {
@@ -44,6 +42,11 @@ public class UI : MonoBehaviour
         Score = ((int)ScoreF);
         ScoreText.text = "Score:" + Score;
         AttemptText.text = "Attempt:" + Attempt;
+
+        if (WorldInfo.GameFin) {
+            if (WorldInfo.GetSeed() != null) {SeedText.text = "Seed:" + WorldInfo.GetSeed(); }
+            FinAttemptText.text = "Completed in: " + Attempt + " Attempts";
+        }
     }
 
     public void Resume() {
@@ -62,6 +65,8 @@ public class UI : MonoBehaviour
         SceneManager.LoadScene(0);
         
     }
+
+    public void Replay() { SceneManager.LoadScene(SceneManager.GetActiveScene().name); }
 
     public void Quit() { Application.Quit(); }
 }

@@ -9,7 +9,6 @@ public class PlayerLife : MonoBehaviour
     private Rigidbody2D rb;
     private GameObject ObstacleManager;
     private GameObject Player;
-    private GameObject UI;
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();

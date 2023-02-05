@@ -6,6 +6,7 @@ public static class WorldInfo {
     private static Vector2 SpawnPoint = new Vector2(-1,2);
     private static string Seed;
     public static bool HasDied = false;
+    public static bool GameFin = false;
     //Set false to test for mission level
     public static bool Endless = true;
 
