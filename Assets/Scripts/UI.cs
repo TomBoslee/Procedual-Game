@@ -16,6 +16,10 @@ public class UI : MonoBehaviour
     private float Attempt = 0;
     public TMP_Text AttemptText;
 
+    private float HighScoreF = 0;
+    private int HighScore = 0;
+    public TMP_Text HighScoreText;
+
     public GameObject PauseMenuUI;
 
     public Slider LevelSlider;
@@ -30,7 +34,10 @@ public class UI : MonoBehaviour
         }
         if(WorldInfo.HasDied ==  true) {Attempt+= 1;
            WorldInfo.HasDied = false;
+            if (ScoreF > HighScoreF) { HighScoreF= ScoreF; }
             ScoreF = 0;
+            HighScore = (int)HighScoreF;
+            HighScoreText.text = "HIGHSCORE:" + HighScore;   
         }
         LevelSlider.value = Score * 2;
         ScoreF = ScoreF + (Frequency * Time.deltaTime);

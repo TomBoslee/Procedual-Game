@@ -7,6 +7,7 @@ public class LevelGeneration : MonoBehaviour
 {
     public GameObject ObstacleManager;
     public GameObject MissionUI;
+    public GameObject EndlessUI;
     public Transform Square;
     public Transform JumpPad;
     public Transform player;
@@ -27,10 +28,12 @@ public class LevelGeneration : MonoBehaviour
         GeneratePlayer();
         if (WorldInfo.Endless == true) {
             MissionUI.SetActive(false);
+            EndlessUI.SetActive(true);
             GenerateRandomObstacles(); }
         if(WorldInfo.Endless == false)
         {
             MissionUI.SetActive(true);
+            EndlessUI.SetActive(false);
             Debug.Log(WorldInfo.GetSeed());
             MissionGeneration();
         }
