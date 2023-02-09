@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class Player : MonoBehaviour
 {
-    private float Jumpspeed = 8f;
+    private float Jumpspeed = 9f;
     private float SuperJumpSpeed = 8f;
     private Rigidbody2D body;
     private bool grounded;

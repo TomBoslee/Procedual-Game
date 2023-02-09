@@ -16,9 +16,11 @@ public class LevelGeneration : MonoBehaviour
     public Transform player;
     public Transform Spike;
     public int ObstacleMax;
-    public float scrollSpeed = 5.0f;
+    public float scrollSpeed = 7.0f;
     public float Frequency = 0.5f;
     private float Counter = 0.0f;
+
+    private int index = 0;
 
     private void Awake()
     {
@@ -44,7 +46,6 @@ public class LevelGeneration : MonoBehaviour
             MissionUI.SetActive(true);
             EndlessUI.SetActive(false);
             Debug.Log(WorldInfo.GetSeed());
-            MissionGeneration();
         }
 
     }
@@ -56,7 +57,7 @@ public class LevelGeneration : MonoBehaviour
         if (WorldInfo.GameFin == false)
         {
             //Coditional Generation Depending on the mode the game is in.
-            if (WorldInfo.Endless == true) { EndlessUpdate(); } //else { MissionGeneration(); }
+            if (WorldInfo.Endless == true) { EndlessUpdate(); } else { MissionGeneration(); }
             //Causes the screen to scroll
             ObstacleManager.transform.position -= Vector3.right * (scrollSpeed * Time.deltaTime);
             GameObject CurrentChild;
@@ -87,7 +88,12 @@ public class LevelGeneration : MonoBehaviour
 
     private void MissionGeneration() {
         //TODO: Add Mission generation
-        Decoder(Obstacles.LoadObstacle(Obstacles.Keys[2]), 16, 1);
+        //Decoder(Obstacles.LoadObstacle(Obstacles.Keys[2]), 16, 1);
+        if (Counter <= 0.0f) { 
+            Decoder(Obstacles.LoadObstacle(Obstacles.Keys[index]), 16, 1);
+            if (index != ObstacleMax - 1) {index++; } else { index = 0; }
+            Counter= 1.0f;
+        } else { Counter -= Time.deltaTime * Frequency; }
     }
 
     private void EndlessUpdate()
