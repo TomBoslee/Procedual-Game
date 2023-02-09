@@ -18,6 +18,7 @@ public class Player : MonoBehaviour
     private void Update()
     {
         body.gravityScale = 5;
+        //Jump Input
         if (Input.GetKeyDown(KeyCode.Space) && grounded)
         {
             jump(Jumpspeed);
@@ -28,12 +29,14 @@ public class Player : MonoBehaviour
 
     private void jump(float JSpeed)
     {
+        //Adds force for jump
         body.AddForce(Vector3.up * (JSpeed * body.mass * body.gravityScale * 20f));
         grounded = false;
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
+        //Stops player from jumping in the air
         if(collision.gameObject.CompareTag("Ground"))
         {
             grounded = true;
@@ -42,9 +45,11 @@ public class Player : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
+        //Triggers Jump
         if (collision.gameObject.CompareTag("JumpPad")) {
             jump(SuperJumpSpeed);
         }
+        //Triggers Goal State
         if (collision.gameObject.CompareTag("Goal")) {
             WorldInfo.GameFin = true;
         }

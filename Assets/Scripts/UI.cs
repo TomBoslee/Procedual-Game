@@ -26,23 +26,29 @@ public class UI : MonoBehaviour
 
     private void Update()
     {
+        //Pauses Game
         if(Input.GetKeyDown(KeyCode.Escape))
         {
             if (GameIsPause) { Resume(); } else { Pause(); }
         }
+        //Sets death token up by one
         if(WorldInfo.HasDied ==  true) {Attempt+= 1;
            WorldInfo.HasDied = false;
+            //Set HighScore
             if (ScoreF > HighScoreF) { HighScoreF= ScoreF; }
             ScoreF = 0;
             HighScore = (int)HighScoreF;
             HighScoreText.text = "HIGHSCORE:" + HighScore;   
         }
+        //Toggle progress on Level slide
         LevelSlider.value = Score * 2;
+        //Set new score value
         ScoreF = ScoreF + (Frequency * Time.deltaTime);
         Score = ((int)ScoreF);
         ScoreText.text = "Score:" + Score;
         AttemptText.text = "Attempt:" + Attempt;
 
+        //Set attempts for end screen
         if (WorldInfo.GameFin) {
             if (WorldInfo.GetSeed() != null) {SeedText.text = "Seed:" + WorldInfo.GetSeed(); }
             FinAttemptText.text = "Completed in: " + Attempt + " Attempts";

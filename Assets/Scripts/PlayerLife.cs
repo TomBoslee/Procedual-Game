@@ -5,7 +5,6 @@ using UnityEngine.UI;
 
 public class PlayerLife : MonoBehaviour
 {
-    // Start is called before the first frame update
     private Rigidbody2D rb;
     private GameObject ObstacleManager;
     private GameObject Player;
@@ -19,6 +18,7 @@ public class PlayerLife : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        //kills player if pushed back by box
         if (rb.transform.position.x < WorldInfo.GetSpawn().x) { GameOver();}
     }
 
@@ -33,6 +33,7 @@ public class PlayerLife : MonoBehaviour
     private void GameOver()
     {
      GameObject CurrentChild;
+        //Destroys all obstacles on the map.
         for (int i = 0; i < ObstacleManager.transform.childCount; i++)
         {
             CurrentChild = ObstacleManager.transform.GetChild(i).gameObject;

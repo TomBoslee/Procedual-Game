@@ -24,17 +24,21 @@ public class LevelGeneration : MonoBehaviour
     {
         Obstacles.initialiseObstacle();
         ObstacleMax = Obstacles.Keys.Count;
+        //Reset Values after Game
         Time.timeScale= 1.0f;
         WorldInfo.GameFin = false;
     }
     void Start()
     {
+        //Generates the intial Scene
         GeneratePlayer();
         StartUI.SetActive(true);
+        //Generate for Enless Mode
         if (WorldInfo.Endless == true) {
             MissionUI.SetActive(false);
             EndlessUI.SetActive(true);
             GenerateRandomObstacles(); }
+        //Generate for Mission Mode
         if(WorldInfo.Endless == false)
         {
             MissionUI.SetActive(true);
@@ -48,11 +52,15 @@ public class LevelGeneration : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        //Stops updating if games finished
         if (WorldInfo.GameFin == false)
         {
+            //Coditional Generation Depending on the mode the game is in.
             if (WorldInfo.Endless == true) { EndlessUpdate(); } //else { MissionGeneration(); }
+            //Causes the screen to scroll
             ObstacleManager.transform.position -= Vector3.right * (scrollSpeed * Time.deltaTime);
             GameObject CurrentChild;
+            //Deletes obstacles if they are off screen.
             for (int i = 0; i < ObstacleManager.transform.childCount; i++){
                 CurrentChild = ObstacleManager.transform.GetChild(i).gameObject;
                 if (CurrentChild.transform.position.x < -15.0f){
@@ -61,11 +69,13 @@ public class LevelGeneration : MonoBehaviour
             }
 
         }
+        //Game Finished
         else {GameComplete(); }
         
     }
 
-    private void GameComplete() { 
+    private void GameComplete() {
+        //Change UI to complete Screen
         StartUI.SetActive(false);
         EndlessUI.SetActive(false);
         MissionUI.SetActive(false);
@@ -76,11 +86,13 @@ public class LevelGeneration : MonoBehaviour
     }
 
     private void MissionGeneration() {
+        //TODO: Add Mission generation
         Decoder(Obstacles.LoadObstacle(Obstacles.Keys[2]), 16, 1);
     }
 
     private void EndlessUpdate()
     {
+        //Randomizes selectionn of obstacle according to counter
        if (Counter <= 0.0f) { GenerateRandomObstacles(); } else { Counter -= Time.deltaTime * Frequency; }
     }
 
@@ -89,7 +101,8 @@ public class LevelGeneration : MonoBehaviour
         Decoder(Obstacles.LoadObstacle(Obstacles.Keys[ran]), 16, 1);
         Counter = 1.0f;
     }
-
+    
+    //Generates obstacles
     private void Decoder(string code, int posX, int posY)
     {
         int X = posX;
@@ -133,6 +146,7 @@ public class LevelGeneration : MonoBehaviour
 
     }
 
+    //Generate goal game object
     private void GenerateGoal() {
         Transform goal = Instantiate(Goal);
         goal.name = "FinishLine";
@@ -140,6 +154,7 @@ public class LevelGeneration : MonoBehaviour
         goal.parent = ObstacleManager.transform;
     }
 
+    //Generate Jump pad game object
     private void GenerateJumpPad(int posX, int posY)
     {
         Transform pad = Instantiate(JumpPad);
@@ -148,6 +163,7 @@ public class LevelGeneration : MonoBehaviour
         pad.parent = ObstacleManager.transform;
     }
 
+    //Generate block game object
     private void GenerateSquare(int posX, int PosY)
     {
         Transform box = Instantiate(Square);
@@ -156,6 +172,7 @@ public class LevelGeneration : MonoBehaviour
         box.parent = ObstacleManager.transform;
     }
 
+    //Generate spike game object
     private Transform GenerateSpike(float PosX, float PosY)
     {
         Transform spike = Instantiate(Spike);
@@ -165,14 +182,15 @@ public class LevelGeneration : MonoBehaviour
         return spike;
     }
 
-
+    //Rotates existing spike 180
     private void RotateSpike(Transform Spike)
     {
         Spike.rotation = Quaternion.Euler(0, 0, 180);
         Spike.Translate(0,-0.15f,0);
     }
-        
-        private void GeneratePlayer()
+
+    //Generate player game object
+    private void GeneratePlayer()
     {
         Transform Player = Instantiate(player);
         Player.name = "Player";

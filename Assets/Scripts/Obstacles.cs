@@ -9,6 +9,7 @@ public static class Obstacles
     private static Dictionary<string,string> Obstacle = new Dictionary<string,string>();
     public static List<string> Keys = new List<string>();
 
+    //Path of obstacle text file
     private static string Path = "Assets/Resources/Obstacles.txt";
     
     public static void initialiseObstacle()
@@ -22,6 +23,7 @@ public static class Obstacles
         while (reader.Peek() >= 0)
         {
             line = reader.ReadLine();
+            //Set rules for reading eachline
             if (!line.StartsWith("/")) {
             key = line.Split('-')[0];
             code = line.Split('-')[1];
@@ -32,7 +34,7 @@ public static class Obstacles
         
         
     }
-
+    //Load array of obstacles
     public static string LoadObstacle(string key)
     {
         return Obstacle[key];

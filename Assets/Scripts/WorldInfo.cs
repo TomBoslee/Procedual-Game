@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public static class WorldInfo {
+    //Set variables about the world that are required in multiple classes
     private static Vector2 SpawnPoint = new Vector2(-1,2);
     private static string Seed;
     public static bool HasDied = false;

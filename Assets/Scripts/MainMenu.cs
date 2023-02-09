@@ -19,12 +19,14 @@ public class MainMenu : MonoBehaviour
 
     private void Start()
     {
+        //Gets auto Resolution
         resolutions = Screen.resolutions;
 
         ResolutionDropdown.ClearOptions();
 
         List<string> Options = new List<string>();
 
+        //Creates list for resolutions
         int currentResolutionIndex = 0;
         for (int i = 0; i  < resolutions.Length; i++)
         {
@@ -42,6 +44,7 @@ public class MainMenu : MonoBehaviour
         ResolutionDropdown.RefreshShownValue();
 
     }
+    //Below is button options that are called in buttons.
     public void PlayGameEndless()
     {
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
