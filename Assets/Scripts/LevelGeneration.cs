@@ -19,6 +19,7 @@ public class LevelGeneration : MonoBehaviour
     public float scrollSpeed = 7.0f;
     public float Frequency = 0.5f;
     private float Counter = 0.0f;
+    private int CurrentSeed;
 
     private int index = 0;
 
@@ -35,6 +36,8 @@ public class LevelGeneration : MonoBehaviour
         //Generates the intial Scene
         GeneratePlayer();
         StartUI.SetActive(true);
+        CurrentSeed = WorldInfo.GetSeed().GetHashCode();
+        Random.InitState(CurrentSeed);
         //Generate for Enless Mode
         if (WorldInfo.Endless == true) {
             MissionUI.SetActive(false);
