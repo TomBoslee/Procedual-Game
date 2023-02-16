@@ -45,16 +45,19 @@ public class MainMenu : MonoBehaviour
 
     }
     //Below is button options that are called in buttons.
+    public void PlayGame() {
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1); 
+        WorldInfo.SetSeed(SeedInput.text);
+    }
+
+
     public void PlayGameEndless()
     {
-        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
         WorldInfo.Endless = true;
     }
 
     public void PlayGameSeed()
-    {
-        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
-        WorldInfo.SetSeed(SeedInput.text);
+    {   
         WorldInfo.Endless = false;
     }
 
