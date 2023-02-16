@@ -15,9 +15,11 @@ public class LevelGeneration : MonoBehaviour
     public Transform JumpPad;
     public Transform player;
     public Transform Spike;
-    public int ObstacleMax;
-    public float scrollSpeed = 7.0f;
-    public float Frequency = 0.5f;
+    private int ObstacleMax;
+    //5 - 7 scroll speed seems good (Requiresa more testing)
+    private float scrollSpeed = 7.0f;
+    //0.5 - 1f is a good frequency
+    private float Frequency = 0.5f;
     private float Counter = 0.0f;
     private int CurrentSeed;
 
@@ -102,7 +104,7 @@ public class LevelGeneration : MonoBehaviour
     private void EndlessUpdate()
     {
         //Randomizes selectionn of obstacle according to counter
-       if (Counter <= 0.0f) { GenerateRandomObstacles(); } else { Counter -= Time.deltaTime * Frequency; }
+       if (Counter <= 0.0f) { GenerateRandomObstacles(); } else { Counter -= Time.deltaTime * Frequency;}
     }
 
     private void GenerateRandomObstacles() {
