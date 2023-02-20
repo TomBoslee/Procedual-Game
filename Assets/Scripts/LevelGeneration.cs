@@ -136,11 +136,16 @@ public class LevelGeneration : MonoBehaviour
                 else if (codeline[n] == '3')
                 {
                     Transform spike = GenerateSpike(X, Y);
-                    RotateSpike(spike);
+                    RotateSpike(spike, 180);
                 }
                 else if (codeline[n] == '4')
                 {
                     GenerateJumpPad(X, Y);
+                }
+                else if (codeline[n] == '5') 
+                {
+                    Transform spike = GenerateSpike(X, Y);
+                    RotateSpike(spike, 90);
                 }
                 else if (codeline[n] == 'G')
                 { 
@@ -194,9 +199,9 @@ public class LevelGeneration : MonoBehaviour
     }
 
     //Rotates existing spike 180
-    private void RotateSpike(Transform Spike)
+    private void RotateSpike(Transform Spike,float rotation)
     {
-        Spike.rotation = Quaternion.Euler(0, 0, 180);
+        Spike.rotation = Quaternion.Euler(0, 0, rotation);
         Spike.Translate(0,-0.15f,0);
     }
 
