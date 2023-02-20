@@ -1,3 +1,4 @@
+using System;
 using System.Runtime.Serialization;
 using Unity.VisualScripting;
 using UnityEngine;
@@ -22,9 +23,7 @@ public class LevelGeneration : MonoBehaviour
     private float Frequency = 0.5f;
     private float Counter = 0.0f;
     private int CurrentSeed;
-
     private int index = 0;
-
     private void Awake()
     {
         Obstacles.initialiseObstacle();
@@ -39,7 +38,7 @@ public class LevelGeneration : MonoBehaviour
         GeneratePlayer();
         StartUI.SetActive(true);
         CurrentSeed = WorldInfo.GetSeed().GetHashCode();
-        Random.InitState(CurrentSeed);
+        UnityEngine.Random.InitState(CurrentSeed);
         //Generate for Enless Mode
         if (WorldInfo.Endless == true) {
             MissionUI.SetActive(false);
@@ -108,7 +107,7 @@ public class LevelGeneration : MonoBehaviour
     }
 
     private void GenerateRandomObstacles() {
-        int ran = Random.Range(0, ObstacleMax);
+        int ran = UnityEngine.Random.Range(0, ObstacleMax);
         Decoder(Obstacles.LoadObstacle(Obstacles.Keys[ran]), 16, 1);
         Counter = 1.0f;
     }
