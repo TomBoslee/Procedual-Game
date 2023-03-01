@@ -53,7 +53,6 @@ public class LevelGeneration : MonoBehaviour
         {
             MissionUI.SetActive(true);
             EndlessUI.SetActive(false);
-            Debug.Log(WorldInfo.GetSeed());
             for (int n = 0; n < length; n++) 
                 {
                  int ran = UnityEngine.Random.Range(0, ObstacleMax);
