@@ -33,7 +33,7 @@ public class UI : MonoBehaviour
         }
         //Sets death token up by one
         if(WorldInfo.HasDied ==  true) {Attempt+= 1;
-           WorldInfo.HasDied = false;
+           //WorldInfo.HasDied = false;
             //Set HighScore
             if (ScoreF > HighScoreF) { HighScoreF= ScoreF; }
             ScoreF = 0;

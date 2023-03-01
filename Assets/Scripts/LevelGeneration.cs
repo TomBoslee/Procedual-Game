@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.Runtime.Serialization;
 using Unity.VisualScripting;
 using UnityEngine;
@@ -24,6 +25,9 @@ public class LevelGeneration : MonoBehaviour
     private float Counter = 0.0f;
     private int CurrentSeed;
     private int index = 0;
+    //Level Length
+    private int length = 15;
+    private List<int> level = new List<int>();
     private void Awake()
     {
         Obstacles.initialiseObstacle();
@@ -50,6 +54,13 @@ public class LevelGeneration : MonoBehaviour
             MissionUI.SetActive(true);
             EndlessUI.SetActive(false);
             Debug.Log(WorldInfo.GetSeed());
+            for (int n = 0; n < length; n++) 
+                {
+                 int ran = UnityEngine.Random.Range(0, ObstacleMax);
+                 level.Add(ran);
+                }
+            level.Add(-1);
+            level.Add(-2);
         }
 
     }
@@ -60,6 +71,7 @@ public class LevelGeneration : MonoBehaviour
         //Stops updating if games finished
         if (WorldInfo.GameFin == false)
         {
+            if (WorldInfo.HasDied == true) { index = 0; WorldInfo.HasDied = false; }
             //Coditional Generation Depending on the mode the game is in.
             if (WorldInfo.Endless == true) { EndlessUpdate(); } else { MissionGeneration(); }
             //Causes the screen to scroll
@@ -92,10 +104,16 @@ public class LevelGeneration : MonoBehaviour
 
     private void MissionGeneration() {
         //TODO: Add Mission generation
-        //Decoder(Obstacles.LoadObstacle(Obstacles.Keys[2]), 16, 1);
-        if (Counter <= 0.0f) { 
-            Decoder(Obstacles.LoadObstacle(Obstacles.Keys[index]), 16, 1);
-            if (index != ObstacleMax - 1) {index++; } else { index = 0; }
+        if (Counter <= 0.0f) {
+            if (level[index] > -1)
+            {
+                Decoder(Obstacles.LoadObstacle(Obstacles.Keys[level[index]]), 16, 1);
+                
+            }
+            else if (level[index] == -1) { GenerateGoal(); }
+            index++;
+            //Decoder(Obstacles.LoadObstacle(Obstacles.Keys[index]), 16, 1);
+            //if (index != ObstacleMax - 1) {index++; } else { index = 0; }
             Counter= 1.0f;
         } else { Counter -= Time.deltaTime * Frequency; }
     }
