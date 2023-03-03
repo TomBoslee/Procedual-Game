@@ -101,7 +101,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 43fef61322409db4e94acadb01784620, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  jumpAnimation: {fileID: 2043235747086768835}
 --- !u!61 &2043235747086768839
 BoxCollider2D:
   m_ObjectHideFlags: 0
