@@ -10,8 +10,9 @@ public static class Obstacles
     public static List<string> Keys = new List<string>();
 
     //Path of obstacle text file
-    private static string Path = "Assets/Resources/Obstacles.txt";
-    
+    //private static string Path = "Assets/Resources/Obstacles.txt";
+    private static string Path = Application.streamingAssetsPath + "/Obstacles.txt";
+
     public static void initialiseObstacle()
     {
         Obstacle.Clear();

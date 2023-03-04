@@ -35,6 +35,7 @@ public class LevelGeneration : MonoBehaviour
         //Reset Values after Game
         Time.timeScale= 1.0f;
         WorldInfo.GameFin = false;
+        Debug.Log("Code");
     }
     void Start()
     {
