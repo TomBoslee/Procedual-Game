@@ -24,7 +24,6 @@ public class LevelGeneration : MonoBehaviour
     private float Frequency = 0.5f;
     private float Counter = 0.0f;
     private int CurrentSeed;
-    private int index = 0;
     //Level Length
     private int length = 15;
     private List<int> level = new List<int>();
@@ -32,7 +31,7 @@ public class LevelGeneration : MonoBehaviour
     private void Awake()
     {
         Obstacles.initialiseObstacle();
-        ObstacleMax = Obstacles.Keys.Count;
+        ObstacleMax = Obstacles.ObsList.Count;
         //Reset Values after Game
         Time.timeScale= 1.0f;
         WorldInfo.GameFin = false;
@@ -74,16 +73,13 @@ public class LevelGeneration : MonoBehaviour
                 //Causes the screen to scroll
                 ObstacleManager.transform.position -= Vector3.right * (scrollSpeed * Time.deltaTime);
                 GameObject CurrentChild;
-
-                if (WorldInfo.Endless == true) { 
-                    //Deletes obstacles if they are off screen.
-                    for (int i = 0; i < ObstacleManager.transform.childCount; i++)
+                //Deletes obstacles if they are off screen.
+               for (int i = 0; i < ObstacleManager.transform.childCount; i++)
                     {
-                        CurrentChild = ObstacleManager.transform.GetChild(i).gameObject;
-                        if (CurrentChild.transform.position.x < -15.0f)
-                        {
-                            Destroy(CurrentChild);
-                        }
+                    CurrentChild = ObstacleManager.transform.GetChild(i).gameObject;
+                    if (CurrentChild.transform.position.x < -15.0f)
+                    {
+                        Destroy(CurrentChild);
                     }
                 }
             }
@@ -139,7 +135,7 @@ public class LevelGeneration : MonoBehaviour
 
     private void GenerateRandomObstacles() {
         int ran = UnityEngine.Random.Range(0, ObstacleMax);
-        Decoder(Obstacles.LoadObstacle(Obstacles.Keys[ran]), 16, 1);
+        Decoder(Obstacles.ObsList[ran].code, 16, 1);
         Counter = 1.0f;
     }
     

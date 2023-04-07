@@ -9,7 +9,7 @@ public static class WorldInfo {
     public static bool HasDied = false;
     public static bool GameFin = false;
     //Set false to test for mission level
-    public static bool Endless = false;
+    public static bool Endless = true;
 
     public static void SetSpwan(Vector2 spawn)
     {
