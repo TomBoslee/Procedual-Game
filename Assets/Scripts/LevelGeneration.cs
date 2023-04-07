@@ -28,6 +28,7 @@ public class LevelGeneration : MonoBehaviour
     //Level Length
     private int length = 15;
     private List<int> level = new List<int>();
+    private Boolean start = false;
     private void Awake()
     {
         Obstacles.initialiseObstacle();
@@ -35,7 +36,6 @@ public class LevelGeneration : MonoBehaviour
         //Reset Values after Game
         Time.timeScale= 1.0f;
         WorldInfo.GameFin = false;
-        Debug.Log("Code");
     }
     void Start()
     {
@@ -48,19 +48,14 @@ public class LevelGeneration : MonoBehaviour
         if (WorldInfo.Endless == true) {
             MissionUI.SetActive(false);
             EndlessUI.SetActive(true);
+            start = true;
             GenerateRandomObstacles(); }
         //Generate for Mission Mode
         if(WorldInfo.Endless == false)
         {
             MissionUI.SetActive(true);
             EndlessUI.SetActive(false);
-            for (int n = 0; n < length; n++) 
-                {
-                 int ran = UnityEngine.Random.Range(0, ObstacleMax);
-                 level.Add(ran);
-                }
-            level.Add(-1);
-            level.Add(-2);
+            levelCreator();
         }
 
     }
@@ -71,20 +66,27 @@ public class LevelGeneration : MonoBehaviour
         //Stops updating if games finished
         if (WorldInfo.GameFin == false)
         {
-            if (WorldInfo.HasDied == true) { index = 0; WorldInfo.HasDied = false; }
-            //Coditional Generation Depending on the mode the game is in.
-            if (WorldInfo.Endless == true) { EndlessUpdate(); } else { MissionGeneration(); }
-            //Causes the screen to scroll
-            ObstacleManager.transform.position -= Vector3.right * (scrollSpeed * Time.deltaTime);
-            GameObject CurrentChild;
-            //Deletes obstacles if they are off screen.
-            for (int i = 0; i < ObstacleManager.transform.childCount; i++){
-                CurrentChild = ObstacleManager.transform.GetChild(i).gameObject;
-                if (CurrentChild.transform.position.x < -15.0f){
-                    Destroy(CurrentChild);
+            if (start)
+            {
+                if (WorldInfo.HasDied == true) { MissionGeneration(); WorldInfo.HasDied = false; }
+                //Coditional Generation Depending on the mode the game is in.
+                if (WorldInfo.Endless == true) { EndlessUpdate(); }
+                //Causes the screen to scroll
+                ObstacleManager.transform.position -= Vector3.right * (scrollSpeed * Time.deltaTime);
+                GameObject CurrentChild;
+
+                if (WorldInfo.Endless == true) { 
+                    //Deletes obstacles if they are off screen.
+                    for (int i = 0; i < ObstacleManager.transform.childCount; i++)
+                    {
+                        CurrentChild = ObstacleManager.transform.GetChild(i).gameObject;
+                        if (CurrentChild.transform.position.x < -15.0f)
+                        {
+                            Destroy(CurrentChild);
+                        }
+                    }
                 }
             }
-
         }
         //Game Finished
         else {GameComplete(); }
@@ -102,20 +104,31 @@ public class LevelGeneration : MonoBehaviour
         Destroy(GameObject.Find("Player"));
     }
 
-    private void MissionGeneration() {
-        //TODO: Add Mission generation
-        if (Counter <= 0.0f) {
-            if (level[index] > -1)
-            {
-                Decoder(Obstacles.LoadObstacle(Obstacles.Keys[level[index]]), 16, 1);
-                
-            }
-            else if (level[index] == -1) { GenerateGoal(); }
-            index++;
-            //Decoder(Obstacles.LoadObstacle(Obstacles.Keys[index]), 16, 1);
-            //if (index != ObstacleMax - 1) {index++; } else { index = 0; }
-            Counter= 1.0f;
-        } else { Counter -= Time.deltaTime * Frequency; }
+    private void levelCreator() {
+        for (int n = 0; n < length; n++)
+        {
+            int ran = UnityEngine.Random.Range(0, ObstacleMax);
+            level.Add(ran);
+        }
+        level.Add(-1);
+        level.Add(-2);
+        MissionGeneration();
+    }
+
+    private void MissionGeneration()
+    {
+        int posX = 16;
+        int posY = 1;
+        for (int n = 0; n < level.Count - 1; n++) {
+        if (level[n] > -1)
+        {
+            Decoder(Obstacles.ObsList[level[n]].code, posX, posY);
+            posX = posX + Obstacles.ObsList[level[n]].x;
+        }
+        else if (level[n] == -1) { GenerateGoal(posX); }
+        posX = posX + 5;
+        }
+        start = true;
     }
 
     private void EndlessUpdate()
@@ -164,10 +177,6 @@ public class LevelGeneration : MonoBehaviour
                     Transform spike = GenerateSpike(X, Y);
                     RotateSpike(spike, 90);
                 }
-                else if (codeline[n] == 'G')
-                { 
-                    GenerateGoal();
-                }
 
                 X++;    
 
@@ -180,10 +189,10 @@ public class LevelGeneration : MonoBehaviour
     }
 
     //Generate goal game object
-    private void GenerateGoal() {
+    private void GenerateGoal(int x) {
         Transform goal = Instantiate(Goal);
         goal.name = "FinishLine";
-        goal.position = new Vector2(16,3.75f);
+        goal.position = new Vector2(x,3.75f);
         goal.parent = ObstacleManager.transform;
     }
 

@@ -6,8 +6,9 @@ using System.IO;
 
 public static class Obstacles
 {
-    private static Dictionary<string,string> Obstacle = new Dictionary<string,string>();
+    private static Dictionary<string,string> ObstacleDict = new Dictionary<string,string>();
     public static List<string> Keys = new List<string>();
+    public static List<Obstacle> ObsList = new List<Obstacle>();
 
     //Path of obstacle text file
     //private static string Path = "Assets/Resources/Obstacles.txt";
@@ -15,7 +16,7 @@ public static class Obstacles
 
     public static void initialiseObstacle()
     {
-        Obstacle.Clear();
+        ObstacleDict.Clear();
         Keys.Clear();
         string line;
         string key;
@@ -28,7 +29,9 @@ public static class Obstacles
             if (!line.StartsWith("/")) {
             key = line.Split('-')[0];
             code = line.Split('-')[1];
-            Obstacle.Add(key, code);
+            Obstacle temp = new Obstacle(code);
+            ObsList.Add(temp);
+            ObstacleDict.Add(key, code);
             Keys.Add(key);
             }
         }
@@ -38,6 +41,6 @@ public static class Obstacles
     //Load array of obstacles
     public static string LoadObstacle(string key)
     {
-        return Obstacle[key];
+        return ObstacleDict[key];
     }
 }
