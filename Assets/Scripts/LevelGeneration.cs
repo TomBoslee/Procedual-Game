@@ -4,6 +4,7 @@ using System.Runtime.Serialization;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Tilemaps;
+using UnityEngine.UIElements;
 
 public class LevelGeneration : MonoBehaviour
 {
@@ -38,8 +39,8 @@ public class LevelGeneration : MonoBehaviour
     }
     void Start()
     {
-        if (WorldInfo.GetDifficulty() == 0) { length = 5; }
-        else if (WorldInfo.GetDifficulty() == 1) { length = 15; }
+        if (WorldInfo.GetDifficulty() == 0) { length = 10; }
+        else if (WorldInfo.GetDifficulty() == 1) { length = 20; }
         else if (WorldInfo.GetDifficulty() == 2) { length = 30; }
 
         //Generates the intial Scene
@@ -117,6 +118,7 @@ public class LevelGeneration : MonoBehaviour
 
     private void MissionGeneration()
     {
+        int seperate = 7;
         int posX = 16;
         int posY = 1;
         for (int n = 0; n < level.Count - 1; n++) {
@@ -126,7 +128,8 @@ public class LevelGeneration : MonoBehaviour
             posX = posX + Obstacles.ObsList[level[n]].x;
         }
         else if (level[n] == -1) { GenerateGoal(posX); }
-        posX = posX + 5;
+            if (n >= length / 2) { seperate = 5; } else if (n == length - 2){ seperate = 3; }
+        posX = posX + seperate;
         }
         start = true;
     }
