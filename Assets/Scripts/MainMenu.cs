@@ -49,18 +49,6 @@ public class MainMenu : MonoBehaviour
         WorldInfo.SetSeed(SeedInput.text);
     }
 
-
-    public void PlayGameEndless()
-    {
-        WorldInfo.Endless = true;
-    }
-
-    public void PlayGameSeed()
-    {   
-        WorldInfo.Endless = false;
-    }
-
-
     public void QuitGame() { 
         Application.Quit();
     }
@@ -75,6 +63,13 @@ public class MainMenu : MonoBehaviour
 
     public void SetFullScreen(bool isFullScreen) { 
         Screen.fullScreen = isFullScreen;
+    }
+
+    public void SetDifficuty(int diff) { WorldInfo.SetDifficulty(diff);}
+
+    public void SetGamemode(int index) {
+        if (index == 0) { WorldInfo.Endless = false; }
+        else if (index == 1) { WorldInfo.Endless = true; }
     }
 
     public void SetResolution(int resolutionIndex) { 
