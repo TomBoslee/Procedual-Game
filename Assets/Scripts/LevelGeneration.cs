@@ -143,6 +143,7 @@ public class LevelGeneration : MonoBehaviour
     private void GenerateRandomObstacles() {
         int ran = UnityEngine.Random.Range(0, ObstacleMax);
         Decoder(Obstacles.ObsList[ran].code, 16, 1);
+        Frequency = Frequency + 0.01f;
         Counter = 1.0f;
     }
     
