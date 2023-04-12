@@ -23,6 +23,17 @@ public class UI : MonoBehaviour
     public TMP_Text SeedText;
     public TMP_Text FinAttemptText;
 
+    private GameObject goal = null;
+    
+    private void Start()
+    {
+        if (WorldInfo.Endless == false){ Invoke("findgoal", 2f); }
+    }
+
+    private void findgoal() {
+        goal = GameObject.Find("FinishLine");
+        if (goal != null) { LevelSlider.maxValue = goal.transform.position.x; }
+    }
 
     private void Update()
     {
@@ -33,15 +44,18 @@ public class UI : MonoBehaviour
         }
         //Sets death token up by one
         if(WorldInfo.HasDied ==  true) {Attempt+= 1;
-           //WorldInfo.HasDied = false;
+            //WorldInfo.HasDied = false;
             //Set HighScore
+            LevelSlider.value = 0;
+            Invoke("findgoal", 2f);
             if (ScoreF > HighScoreF) { HighScoreF= ScoreF; }
             ScoreF = 0;
             HighScore = (int)HighScoreF;
             HighScoreText.text = "HIGHSCORE:" + HighScore;   
         }
         //Toggle progress on Level slide
-        LevelSlider.value = Score * 2;
+        if (WorldInfo.Endless == false && goal != null) { LevelSlider.value = LevelSlider.maxValue - goal.transform.position.x; }
+        
         //Set new score value
         ScoreF = ScoreF + (Frequency * Time.deltaTime);
         Score = ((int)ScoreF);

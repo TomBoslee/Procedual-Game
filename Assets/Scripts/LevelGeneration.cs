@@ -38,6 +38,10 @@ public class LevelGeneration : MonoBehaviour
     }
     void Start()
     {
+        if (WorldInfo.GetDifficulty() == 0) { length = 5; }
+        else if (WorldInfo.GetDifficulty() == 1) { length = 15; }
+        else if (WorldInfo.GetDifficulty() == 2) { length = 30; }
+
         //Generates the intial Scene
         GeneratePlayer();
         StartUI.SetActive(true);
