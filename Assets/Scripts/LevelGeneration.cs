@@ -14,6 +14,7 @@ public class LevelGeneration : MonoBehaviour
     public GameObject GameFinUI;
     public GameObject StartUI;
     public Transform Goal;
+    public Transform Checkpoint;
     public Transform Square;
     public Transform JumpPad;
     public Transform player;
@@ -53,7 +54,7 @@ public class LevelGeneration : MonoBehaviour
             MissionUI.SetActive(false);
             EndlessUI.SetActive(true);
             start = true;
-            GenerateRandomObstacles(); }
+            levelCreator(); }
         //Generate for Mission Mode
         if(WorldInfo.Endless == false)
         {
@@ -74,7 +75,7 @@ public class LevelGeneration : MonoBehaviour
             {
                 if (WorldInfo.HasDied == true) { MissionGeneration(); WorldInfo.HasDied = false; }
                 //Coditional Generation Depending on the mode the game is in.
-                if (WorldInfo.Endless == true) { EndlessUpdate(); }
+                if (WorldInfo.DoUpdate == true) { levelCreator(); WorldInfo.DoUpdate = false;  }
                 //Causes the screen to scroll
                 ObstacleManager.transform.position -= Vector3.right * (scrollSpeed * Time.deltaTime);
                 GameObject CurrentChild;
@@ -106,6 +107,7 @@ public class LevelGeneration : MonoBehaviour
     }
 
     private void levelCreator() {
+        level.Clear();
         for (int n = 0; n < length; n++)
         {
             int ran = UnityEngine.Random.Range(0, ObstacleMax);
@@ -194,7 +196,9 @@ public class LevelGeneration : MonoBehaviour
 
     //Generate goal game object
     private void GenerateGoal(int x) {
-        Transform goal = Instantiate(Goal);
+        Transform goal;
+        if (WorldInfo.Endless == true) { goal = Instantiate(Checkpoint); }
+        else {goal = Instantiate(Goal); }
         goal.name = "FinishLine";
         goal.position = new Vector2(x,3.75f);
         goal.parent = ObstacleManager.transform;

@@ -53,6 +53,9 @@ public class Player : MonoBehaviour
         if (collision.gameObject.CompareTag("Goal")) {
             WorldInfo.GameFin = true;
         }
+        if (collision.gameObject.CompareTag("CheckPoint")) {
+            WorldInfo.DoUpdate = true;
+        }
     }
 
 }

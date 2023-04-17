@@ -2215,6 +2215,7 @@ MonoBehaviour:
   GameFinUI: {fileID: 1783858352}
   StartUI: {fileID: 1844810653}
   Goal: {fileID: 2321068012604368050, guid: 276427d2c5f77a04c89df7a4a1b2fc5c, type: 3}
+  Checkpoint: {fileID: 2321068012604368050, guid: f5f2b4b95f80f304cba7aff68989647e, type: 3}
   Square: {fileID: 1977825769502802382, guid: 820373eebd63ad1489dbfaeb1f2468af, type: 3}
   JumpPad: {fileID: 9096162995050612176, guid: f03a9fbe8d5308f4b8e7b729e945bf12, type: 3}
   player: {fileID: 2043235747086768836, guid: 38afe19a0a93cf64194794de4398a84c, type: 3}
