@@ -12,7 +12,7 @@ public class UI : MonoBehaviour
     private int Score = 0;
     public TMP_Text ScoreText;
     private float Frequency = 1f;
-    private float Attempt = 0;
+    private float Attempt = 1;
     public TMP_Text AttemptText;
     private float HighScoreF = 0;
     private int HighScore = 0;

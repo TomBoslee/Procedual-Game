@@ -26,7 +26,7 @@ public class LevelGeneration : MonoBehaviour
     private float Counter = 0.0f;
     private int CurrentSeed;
     //Level Length
-    private int length = 15;
+    private int length = 10;
     private List<int> level = new List<int>();
     private Boolean start = false;
     private void Awake()
