@@ -5,13 +5,13 @@ using UnityEngine;
 public static class WorldInfo {
     //Set variables about the world that are required in multiple classes
     private static Vector2 SpawnPoint = new Vector2(-1,2);
-    private static string Seed = "Hello";
+    private static string Seed = "";
     private static int Difficulty = 0;
     public static bool HasDied = false;
     public static bool GameFin = false;
     public static bool DoUpdate = false;
     //Set false to test for mission level
-    public static bool Endless = true;
+    public static bool Endless = false;
 
     public static void SetSpwan(Vector2 spawn)
     {

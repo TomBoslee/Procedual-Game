@@ -47,6 +47,16 @@ public class LevelGeneration : MonoBehaviour
         //Generates the intial Scene
         GeneratePlayer();
         StartUI.SetActive(true);
+        //set random seed if non is given
+        if (WorldInfo.GetSeed() == "") {
+            const string charcters = "abcdefghijklmnopqrstuvwxyz0123456789";
+            string NewSeed = "";
+            for (int i = 0; i < 10; i++)
+            {
+                NewSeed += charcters[UnityEngine.Random.Range(0, charcters.Length)];
+            }
+            WorldInfo.SetSeed(NewSeed);
+        }
         CurrentSeed = WorldInfo.GetSeed().GetHashCode();
         UnityEngine.Random.InitState(CurrentSeed);
         //Generate for Enless Mode
