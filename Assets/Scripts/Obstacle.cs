@@ -7,13 +7,18 @@ public struct Obstacle{
     public int x { get; set; }
     public int y { get; set; }
 
-    public Obstacle(string code, int x,int y) {
+    public int diff { get; set; }
+
+    //new obstacle able to set all values
+    public Obstacle(string code, int x,int y,int d) {
         this.code = code;
         this.x = x;
         this.y = y;
+        this.diff = d;
     }
 
-    public Obstacle(string code) {
+    //creates obstacle from base written document
+    public Obstacle(string code, int d) {
         this.code=code;
         int maxX = 0;
         int maxY = 0;
@@ -22,6 +27,7 @@ public struct Obstacle{
             if (maxX < codeline.Length) { maxX = codeline.Length; }
             maxY++;
         }
+        this.diff = d;
         this.x = maxX;
         this.y = maxY;
     }

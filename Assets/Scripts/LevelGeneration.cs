@@ -40,9 +40,9 @@ public class LevelGeneration : MonoBehaviour
     }
     void Start()
     {
-        if (WorldInfo.GetDifficulty() == 0) { length = 10; }
-        else if (WorldInfo.GetDifficulty() == 1) { length = 20; }
-        else if (WorldInfo.GetDifficulty() == 2) { length = 30; }
+        if (WorldInfo.GetDifficulty() == 0) { length = 10; scrollSpeed = 6; }
+        else if (WorldInfo.GetDifficulty() == 1) { length = 20; scrollSpeed = 7; }
+        else if (WorldInfo.GetDifficulty() == 2) { length = 30; scrollSpeed = 8; }
 
         //Generates the intial Scene
         GeneratePlayer();
@@ -121,6 +121,9 @@ public class LevelGeneration : MonoBehaviour
         for (int n = 0; n < length; n++)
         {
             int ran = UnityEngine.Random.Range(0, ObstacleMax);
+            if (n < length / 2) {
+                do { ran = UnityEngine.Random.Range(0, ObstacleMax); } while (Obstacles.ObsList[ran].diff == 2);
+            }
             level.Add(ran);
         }
         level.Add(-1);
@@ -138,7 +141,7 @@ public class LevelGeneration : MonoBehaviour
         {
             Decoder(Obstacles.ObsList[level[n]].code, posX, posY);
             posX = posX + Obstacles.ObsList[level[n]].x;
-        }
+         }
         else if (level[n] == -1) { GenerateGoal(posX); }
             if (n >= length / 2) { seperate = 5; } else if (n == length - 2){ seperate = 3; }
         posX = posX + seperate;
