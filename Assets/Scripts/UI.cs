@@ -22,6 +22,7 @@ public class UI : MonoBehaviour
     public static bool GameIsPause = false;
     public TMP_Text SeedText;
     public TMP_Text FinAttemptText;
+    public TMP_Text PauseSeedText;
 
     private GameObject goal = null;
     
@@ -78,7 +79,8 @@ public class UI : MonoBehaviour
     private void Pause() { 
         PauseMenuUI.SetActive(true);
         Time.timeScale = 0f;
-        GameIsPause= true;
+        PauseSeedText.text = "Seed:" + WorldInfo.GetSeed();
+        GameIsPause = true;
     }
 
     public void LoadMenu() {

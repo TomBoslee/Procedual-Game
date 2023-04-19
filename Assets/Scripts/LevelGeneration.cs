@@ -23,11 +23,10 @@ public class LevelGeneration : MonoBehaviour
     //5 - 7 scroll speed seems good (Requiresa more testing)
     private float scrollSpeed = 7.0f;
     //0.5 - 1f is a good frequency
-    private float Frequency = 0.5f;
-    private float Counter = 0.0f;
     private int CurrentSeed;
     //Level Length
     private int length = 10;
+    private int LengthIncrease = 2;
     private List<int> level = new List<int>();
     private Boolean start = false;
     private void Awake()
@@ -64,6 +63,7 @@ public class LevelGeneration : MonoBehaviour
             MissionUI.SetActive(false);
             EndlessUI.SetActive(true);
             start = true;
+            LengthIncrease = LengthIncrease * (WorldInfo.GetDifficulty() + 1); 
             levelCreator(); }
         //Generate for Mission Mode
         if(WorldInfo.Endless == false)
@@ -85,7 +85,7 @@ public class LevelGeneration : MonoBehaviour
             {
                 if (WorldInfo.HasDied == true) { MissionGeneration(); WorldInfo.HasDied = false; }
                 //Coditional Generation Depending on the mode the game is in.
-                if (WorldInfo.DoUpdate == true) { levelCreator(); WorldInfo.DoUpdate = false;  }
+                if (WorldInfo.DoUpdate == true) { length += LengthIncrease; levelCreator(); WorldInfo.DoUpdate = false;  }
                 //Causes the screen to scroll
                 ObstacleManager.transform.position -= Vector3.right * (scrollSpeed * Time.deltaTime);
                 GameObject CurrentChild;
@@ -118,12 +118,10 @@ public class LevelGeneration : MonoBehaviour
 
     private void levelCreator() {
         level.Clear();
-        for (int n = 0; n < length; n++)
-        {
+        int cost = length;
+        while (cost > 0) {
             int ran = UnityEngine.Random.Range(0, ObstacleMax);
-            if (n < length / 2) {
-                do { ran = UnityEngine.Random.Range(0, ObstacleMax); } while (Obstacles.ObsList[ran].diff == 2);
-            }
+            cost -= Obstacles.ObsList[ran].diff;
             level.Add(ran);
         }
         level.Add(-1);
@@ -147,19 +145,6 @@ public class LevelGeneration : MonoBehaviour
         posX = posX + seperate;
         }
         start = true;
-    }
-
-    private void EndlessUpdate()
-    {
-        //Randomizes selectionn of obstacle according to counter
-       if (Counter <= 0.0f) { GenerateRandomObstacles(); } else { Counter -= Time.deltaTime * Frequency;}
-    }
-
-    private void GenerateRandomObstacles() {
-        int ran = UnityEngine.Random.Range(0, ObstacleMax);
-        Decoder(Obstacles.ObsList[ran].code, 16, 1);
-        Frequency = Frequency + 0.01f;
-        Counter = 1.0f;
     }
     
     //Generates obstacles
@@ -210,7 +195,7 @@ public class LevelGeneration : MonoBehaviour
     //Generate goal game object
     private void GenerateGoal(int x) {
         Transform goal;
-        if (WorldInfo.Endless == true) { goal = Instantiate(Checkpoint); }
+        if (WorldInfo.Endless == true) { goal = Instantiate(Checkpoint);}
         else {goal = Instantiate(Goal); }
         goal.name = "FinishLine";
         goal.position = new Vector2(x,3.75f);
