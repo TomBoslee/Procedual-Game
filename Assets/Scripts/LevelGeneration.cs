@@ -25,7 +25,7 @@ public class LevelGeneration : MonoBehaviour
     //0.5 - 1f is a good frequency
     private int CurrentSeed;
     //Level Length
-    private int length = 10;
+    private int length = 15;
     private int LengthIncrease = 2;
     private List<int> level = new List<int>();
     private Boolean start = false;
@@ -39,9 +39,9 @@ public class LevelGeneration : MonoBehaviour
     }
     void Start()
     {
-        if (WorldInfo.GetDifficulty() == 0) { length = 10; scrollSpeed = 6; }
-        else if (WorldInfo.GetDifficulty() == 1) { length = 20; scrollSpeed = 7; }
-        else if (WorldInfo.GetDifficulty() == 2) { length = 30; scrollSpeed = 8; }
+        if (WorldInfo.GetDifficulty() == 0) { length = 15; scrollSpeed = 6; }
+        else if (WorldInfo.GetDifficulty() == 1) { length = 30; scrollSpeed = 7; }
+        else if (WorldInfo.GetDifficulty() == 2) { length = 45; scrollSpeed = 8; }
 
         //Generates the intial Scene
         GeneratePlayer();
@@ -121,8 +121,10 @@ public class LevelGeneration : MonoBehaviour
         int cost = length;
         while (cost > 0) {
             int ran = UnityEngine.Random.Range(0, ObstacleMax);
-            cost -= Obstacles.ObsList[ran].diff;
+            while (cost > length / 2 && Obstacles.ObsList[ran].diff == 3) { ran = UnityEngine.Random.Range(0, ObstacleMax); }
+            cost -= Obstacles.ObsList[ran].diff;   
             level.Add(ran);
+            Debug.Log(Obstacles.ObsList[ran].diff);
         }
         level.Add(-1);
         level.Add(-2);

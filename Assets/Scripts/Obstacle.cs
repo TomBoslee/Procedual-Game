@@ -1,7 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-
 public struct Obstacle{
     public string code{get; set;}
     public int x { get; set; }
